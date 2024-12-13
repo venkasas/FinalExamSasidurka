@@ -7,12 +7,24 @@
 
 import SwiftUI
 
-struct Contact: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+//struct Coordinate : Codable {
+//    
+//    let lat : String
+//    let lng : String
+//}
+//
+//struct Address : Codable {
+//    
+//    let street : String
+//    let city : String
+//    let geo : Coordinate
+//}
 
-#Preview {
-    Contact()
+
+struct Users : Codable {
+    
+    let id : Int
+    let firstName : String
+    let lastName : String
+    let phone : String
 }

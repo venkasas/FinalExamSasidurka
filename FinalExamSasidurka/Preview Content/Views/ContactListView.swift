@@ -7,9 +7,40 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct ContactListView: View {
+    @StateObject var vm = ContactViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack{
+            Text("List of users")
+            Button("Display Users"){
+                Task{
+                    do {
+                        try await vm.getUsers()
+                    }catch {
+                        
+                        print("error")
+                        // display alert message
+                    }
+                }
+            }
+            
+            List{
+                ForEach(vm.users , id: \.id) {
+                    users in
+                    HStack{
+                        Text(users.firstName)
+                        Text(users.lastName)
+                        Text(users.phone)
+                        
+                    }
+                    
+                }
+            }
+        }
     }
 }
 

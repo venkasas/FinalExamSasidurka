@@ -7,17 +7,17 @@
 
 import Foundation
 
-//https://jsonplaceholder.typicode.com/todos
 
-class TodoViewModel : ObservableObject {
+
+class ContactViewModel : ObservableObject {
     
     //@Published var todoItems : [TodoItem] = []
-    @Published var users : [User] = []
-    let baseUrlStr =  "https://jsonplaceholder.typicode.com/"
+    @Published var users : [Users] = []
+    let baseUrlStr =  "https://dummyjson.com/users"
     
     
     func getUsers() async throws {
-        //https://jsonplaceholder.typicode.com/users
+        //https://dummyjson.com/users
         let urlStr = baseUrlStr+"users"
         let url = URL(string: urlStr)
         
@@ -25,7 +25,7 @@ class TodoViewModel : ObservableObject {
          
         let  jsonDecoder = JSONDecoder()
         
-        let users =  try jsonDecoder.decode([User].self, from: data)
+        let users =  try jsonDecoder.decode([Users].self, from: data)
         
         DispatchQueue.main.async{
             
