@@ -1,4 +1,4 @@
-//
+//  Saidurka Venkatesan - 991542294
 //  ContactListView.swift
 //  FinalExamSasidurka
 //
@@ -7,43 +7,42 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct ContactListView: View {
-    @StateObject var vm = ContactViewModel()
-    
+    @StateObject private var viewModel = UserViewModel()
+
     var body: some View {
-        
-        VStack{
-            Text("List of users")
-            Button("Display Users"){
-                Task{
-                    do {
-                        try await vm.getUsers()
-                    }catch {
-                        
-                        print("error")
-                        // display alert message
+        NavigationStack {
+            Group {
+                if viewModel.isLoading {
+                    ProgressView("Loading...")
+                } else if let errorMessage = viewModel.errorMessage {
+                    VStack {
+                        Text("Error: \(errorMessage)")
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                        Button("Retry") {
+                            viewModel.fetchUsers()
+                        }
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                    }
+                } else {
+                    List(viewModel.users) { user in
+                        NavigationLink(destination: ContactDetailView(user: user)) {
+                            VStack(alignment: .leading) {
+                                Text(user.fullName).font(.headline)
+                                Text(user.phone).font(.subheadline).foregroundColor(.gray)
+                            }
+                        }
                     }
                 }
             }
-            
-            List{
-                ForEach(vm.users , id: \.id) {
-                    users in
-                    HStack{
-                        Text(users.firstName)
-                        Text(users.lastName)
-                        Text(users.phone)
-                        
-                    }
-                    
-                }
+            .navigationTitle("Contacts")
+            .onAppear {
+                viewModel.fetchUsers()
             }
         }
     }
-}
-
-#Preview {
-    ContactListView()
 }
