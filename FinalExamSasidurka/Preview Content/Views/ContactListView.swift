@@ -12,41 +12,40 @@ struct ContactListView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
-                if viewModel.isLoading {
-                    ProgressView("Loading...")
-                } else if let errorMessage = viewModel.errorMessage {
-                    VStack {
-                        Text("Error: \(errorMessage)")
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
-                        Button("Retry") {
-                            viewModel.fetchUsers()
-                        }
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+            if viewModel.isLoading {
+                ProgressView("Loading...")
+                    .navigationTitle("Contacts")
+            } else if let errorMessage = viewModel.errorMessage {
+                VStack {
+                    Text("Error: \(errorMessage)")
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                    Button("Retry") {
+                        viewModel.fetchUsers()
                     }
-                } else {
-                    List(viewModel.users) { user in
-                        NavigationLink(destination: ContactDetailView(user: user)) {
-                            VStack(alignment: .leading) {
-                                Text(user.fullName).font(.headline)
-                                Text(user.phone).font(.subheadline).foregroundColor(.gray)
-                            }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                }
+                .navigationTitle("Contacts")
+            } else {
+                List(viewModel.users) { user in
+                    NavigationLink(destination: ContactDetailView(user: user)) {
+                        VStack(alignment: .leading) {
+                            Text(user.fullName).font(.headline)
+                            Text(user.phone).font(.subheadline).foregroundColor(.gray)
                         }
                     }
                 }
+                .navigationTitle("Contacts")
             }
-            .navigationTitle("Contacts")
-            .onAppear {
-                viewModel.fetchUsers()
-            }
+        }
+        .onAppear {
+            viewModel.fetchUsers()
         }
     }
 }
-
 #Preview {
     ContactListView()
 }

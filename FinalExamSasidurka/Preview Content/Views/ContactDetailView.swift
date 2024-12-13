@@ -12,18 +12,40 @@ struct ContactDetailView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(user.fullName).font(.largeTitle).bold()
+            Text(user.fullName)
+                .font(.largeTitle)
+                .bold()
+
             Text("Age: \(user.age) - Gender: \(user.gender)")
+
             Text("Phone: \(user.phone)")
-            Text("Address: \(user.address.city), \(user.address.postalCode), \(user.address.country)")
-            Text("Company: \(user.company.name) - \(user.company.department) (\(user.company.title))")
+
+            Text("Address:")
+                .font(.headline)
+            Text("\(user.address.address),\(user.address.city), \(user.address.postalCode), \(user.address.country)")
+                .font(.body)
+                .foregroundColor(.gray)
                 .multilineTextAlignment(.leading)
+
+            Text("Company:")
+                .font(.headline)
+            Text("\(user.company.name)")
+                .font(.body)
+                .foregroundColor(.gray)
+            Text("Department: \(user.company.department)")
+                .font(.body)
+                .foregroundColor(.gray)
+            Text("Title: \(user.company.title)")
+                .font(.body)
+                .foregroundColor(.gray)
 
             NavigationLink("View on Map", destination: ContactMapView(user: user))
                 .padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(8)
+
+            Spacer()
         }
         .padding()
         .navigationTitle("Contact Details")

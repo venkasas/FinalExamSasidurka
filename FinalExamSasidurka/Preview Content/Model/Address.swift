@@ -7,6 +7,7 @@
 
 
 struct Address: Codable {
+    let address: String
     let city: String
     let postalCode: String
     let country: String
