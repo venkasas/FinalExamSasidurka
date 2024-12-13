@@ -1,4 +1,4 @@
-//
+//  Sasidurka Venkatesan - 991542294
 //  Company.swift
 //  FinalExamSasidurka
 //
@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct Company: Codable {
+    let name: String
+    let department: String
+    let title: String
+}

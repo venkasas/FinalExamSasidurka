@@ -1,4 +1,4 @@
-//  Saidurka Venkatesan - 991542294
+//  Sasidurka Venkatesan - 991542294
 //  ContactListView.swift
 //  FinalExamSasidurka
 //
@@ -45,4 +45,8 @@ struct ContactListView: View {
             }
         }
     }
+}
+
+#Preview {
+    ContactListView()
 }

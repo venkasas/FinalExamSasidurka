@@ -1,4 +1,4 @@
-//
+//  Sasidurka Venkatesan - 991542294
 //  Coordinates.swift
 //  FinalExamSasidurka
 //
@@ -6,3 +6,7 @@
 //
 
 import Foundation
+struct Coordinates: Codable {
+    let lat: Double
+    let lng: Double
+}
